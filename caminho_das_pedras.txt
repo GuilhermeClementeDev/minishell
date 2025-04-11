@@ -1,0 +1,62 @@
+#include "minishell.h"
+#include "stdio.h"
+
+enum
+PIPE |
+INPUT <
+OUTPUT >
+APPEND >>
+HEREDOC <<
+COMMANDO "echo"
+
+
+char *pegar input()
+// usar a readline para pegar o input
+if nao tiver input (CTRL+D)
+  entao input = 'exit'
+if se tiver conteudo (whitespaces)
+	// salvar no histórico
+return input
+
+int	parser(char *input do usuario)
+{
+	//skipar todos os whitesáces do começo
+	//verificar se ainda ha algo, se nao tiver pode sair
+	if nao algo
+		sair
+	if as aspas não estiverem certas (se elas existem e não estão fechadas)
+		sair
+	parsear
+	exemplo
+	echo 123 > test.txt | cat test.txt
+	token 1 = echo
+	token 2 = 123
+	token 3 ....
+	// split para separar os pipes e redirects
+	// split para separar os comandos
+	// classificar os tokens
+	// lembrando que essas splits que tem ser capaz de ligar com mais de um caracter
+	// e lidar corretamente com as aspas.
+	// os tokens tem que estar dentro de uma lista duplamente encadeada para fazer a verificação depois de classificar
+	// a etapa de verificar é um bando de if com certas regrinhas
+	if verificação deu errada
+		sair (dando free na lista)
+}
+
+int	main (int argc, char **argv, char **envp)
+{
+	//inicializar a struct bolada com zero
+	//settar os sinais
+	//pegar o envp e colocar na lista encadeada
+	while (1)
+	{
+		//input = pegar o input do usuário (com a readline) -> string
+		//pegar a string e parsear(parser(input))
+		// verifica se existe o token de HEREDOC dentro da lista de tokens
+		// faz as expanções de VAR
+		// REORDENAR OS TOKENS (SE PRECISAR)
+		// executar os tokens
+		// dar free em tudo que você mallocou dentro do while true
+	}
+	// clear no historico
+}
