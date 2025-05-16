@@ -6,7 +6,7 @@
 /*   By: guclemen <guclemen@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 14:06:49 by guclemen          #+#    #+#             */
-/*   Updated: 2025/05/14 14:58:39 by guclemen         ###   ########.fr       */
+/*   Updated: 2025/05/15 18:24:54 by guclemen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	is_valid_export(char *str)
 		i++;
 	if (i == 0 || str[i] != '=')
 		return (0);
-	if (str[i - 1] == ' ' || str[i + 1] == ' ')
+	if (str[i - 1] == ' ')
 		return (0);
 	return (1);
 }

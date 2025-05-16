@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gda-conc <gda-conc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: guclemen <guclemen@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 13:02:48 by guclemen          #+#    #+#             */
-/*   Updated: 2025/05/14 17:41:44 by gda-conc         ###   ########.fr       */
+/*   Updated: 2025/05/15 23:28:40 by guclemen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <linux/limits.h>
+# include <sys/wait.h>
 
 # define TRUE 1
 # define FALSE 0
@@ -51,7 +52,22 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
+typedef struct s_shell
+{
+	char		*input;
+	t_token		*tokens;
+	t_cmd		*cmds;
+	char		**env;
+}	t_shell;
+
+//main
 int			ft_not_only_spaces(char *str);
+void		free_input_token_cmd(char *input, \
+	t_token *token_list, t_cmd *cmd_list);
+
+//utilits_main
+void		ft_build_shell(t_shell *shell, char **envp);
+void		ft_clean_shell(t_shell *shell);
 
 //verify_input.c
 int			verify_quotes(const char *str);
@@ -119,6 +135,7 @@ int			count_env(char **env);
 char		**alloc_env(int entry_count);
 void		copy_env_skip(char **old_env, char **new_env, \
 char *skip, char *new_var);
+void		ft_new_env_pwds(char **envp);
 
 //utilits_export
 int			is_valid_export(char *str);
@@ -139,5 +156,8 @@ void		ft_exit(char **args);
 //builtins2
 char		**ft_export(char **env, char *new_var);
 char		**ft_unset(char **env, char *to_remove);
+
+//executor
+void		ft_executer(t_shell *shell);
 
 #endif

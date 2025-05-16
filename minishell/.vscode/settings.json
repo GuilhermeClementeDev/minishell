@@ -1,5 +1,8 @@
 {
 	"conventionalCommits.scopes": [
 		"parsing"
-	]
+	],
+	"files.associations": {
+		"stdlib.h": "c"
+	}
 }
