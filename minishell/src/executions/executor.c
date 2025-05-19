@@ -6,7 +6,7 @@
 /*   By: guclemen <guclemen@student.42.rio>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/15 21:19:25 by guclemen          #+#    #+#             */
-/*   Updated: 2025/05/16 23:36:19 by guclemen         ###   ########.fr       */
+/*   Updated: 2025/05/18 13:06:53 by guclemen         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,10 @@ void	execute_external_func(t_shell *shell)
 	char	*path;
 	pid_t	pid;
 
-	path = find_cmd_path(shell);
+	if (ft_strchr(shell->cmds->args[0], '/'))
+		path = ft_strdup(shell->cmds->args[0]);
+	else
+		path = find_cmd_path(shell);
 	if (!path)
 	{
 		ft_putstr_fd("-bash: ", 2);
