@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bieldojt <bieldojt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gda-conc <gda-conc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 13:02:48 by guclemen          #+#    #+#             */
-/*   Updated: 2025/05/21 16:14:08 by bieldojt         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:30:12 by gda-conc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ void		process_heredocs(t_cmd *cmd_list);
 char		*create_heredoc_file(char *delimiter);
 
 //executor
-void		execute_pipeline(t_cmd *cmd_list, char ***envp);
+void		execute_pipeline(t_shell *shell);
 void		close_cmd_fds(t_cmd *cmd_list);
 
 #endif

@@ -21,13 +21,13 @@
 // ---- Helpers ----
 
 // Builtins rodados no processo pai (mudam estado do shell)
-static int exec_builtin_parent(t_cmd *cmd, char ***envp)
+static int exec_builtin_parent(t_cmd *cmd, char **envp)
 {
     if (!cmd->args || !cmd->args[0])
         return (0);
     if (strcmp(cmd->args[0], "cd") == 0)
     {
-        ft_cd(cmd->args, *envp);
+        ft_cd(cmd->args, envp);
         return (1);
     }
     if (strcmp(cmd->args[0], "exit") == 0)
@@ -37,12 +37,12 @@ static int exec_builtin_parent(t_cmd *cmd, char ***envp)
     }
     if (strcmp(cmd->args[0], "export") == 0)
     {
-        *envp = ft_export(*envp, cmd->args[1]);
+        envp = ft_export(envp, cmd->args[1]);
         return (1);
     }
     if (strcmp(cmd->args[0], "unset") == 0)
     {
-        *envp = ft_unset(*envp, cmd->args[1]);
+        envp = ft_unset(envp, cmd->args[1]);
         return (1);
     }
     return (0);
@@ -177,7 +177,7 @@ static void exec_external_cmd(t_cmd *cmd, char **envp)
 }
 
 // Executa um comando no filho
-static void execute_single_command(t_cmd *cmd, char ***envp)
+static void execute_single_command(t_shell *shell, t_cmd *cmd, char ***envp)
 {
     if (cmd->redirect_error)
         exit(1); // Se houver erro no redirecionamento, sai
@@ -196,7 +196,9 @@ static void execute_single_command(t_cmd *cmd, char ***envp)
 
     if (exec_builtin_child(cmd, *envp))
     {
-    	free_commands(cmd); // ← libera apenas o comando atual
+        ft_clean_shell(shell);
+        free_env(*envp);
+        free(shell);
     	exit(0);
     }
 
@@ -204,16 +206,16 @@ static void execute_single_command(t_cmd *cmd, char ***envp)
 }
 
 // Executa pipeline de comandos
-void execute_pipeline(t_cmd *cmd_list, char ***envp)
+void execute_pipeline(t_shell *shell)
 {
     t_cmd	*cmd;
     pid_t	pid;
     int		status;
 
-    cmd = cmd_list;
+    cmd = shell->cmds;
     while (cmd)
     {
-        if (!cmd->next && exec_builtin_parent(cmd, envp))
+        if (!cmd->next && exec_builtin_parent(cmd, shell->env))
         {
             cmd = cmd->next;
             continue ;
@@ -226,7 +228,7 @@ void execute_pipeline(t_cmd *cmd_list, char ***envp)
             exit(EXIT_FAILURE);
         }
         if (pid == 0) // Filho
-            execute_single_command(cmd, envp);
+            execute_single_command(shell,cmd, &shell->env);
 
         if (cmd->fd_in != STDIN_FILENO)
             close(cmd->fd_in);

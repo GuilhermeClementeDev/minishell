@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bieldojt <bieldojt@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gda-conc <gda-conc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/10 13:02:36 by guclemen          #+#    #+#             */
-/*   Updated: 2025/05/21 16:13:45 by bieldojt         ###   ########.fr       */
+/*   Updated: 2025/05/22 18:34:04 by gda-conc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	execution(t_shell *shell)
 		ft_clean_shell(shell);
 		return (0);
 	}
-	execute_pipeline(shell->cmds, &shell->env);
+	execute_pipeline(shell);
 	close_cmd_fds(shell->cmds);
 	return (1);
 }
